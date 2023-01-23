@@ -1,0 +1,41 @@
+    //function to count total number of nodes.
+    int cntnode(TreeNode* root){
+        if(root==NULL){
+         return 0;
+     } 
+        
+     return 1+cntnode(root->left)+cntnode(root->right);   
+    }
+    
+    bool isCbt(TreeNode* root, int idx, int cnt){
+     //if root is NULL it is a compelete binary tree.
+      if(root==NULL){
+         return true;
+      }
+      // if at any point index goes out of total number of nodes present in binary tree.
+        //return false;
+    if(idx>=cnt){
+        return false;
+    }    
+        //else check for root->s right part and root->sleft part.
+     else{        
+         bool left = isCbt(root->left, 2*idx+1, cnt);
+         bool right = isCbt(root->right, 2*idx+2, cnt);
+         return (left && right);
+     }       
+    }
+    
+    bool isCompleteTree(TreeNode* root) {
+    
+        //first initialise index with zero.
+        int i = 0;
+        //count total number of nodes present in a binary tree.
+       int totalnodes = cntnode(root); 
+       //it is cbt return true else return false; 
+       if(isCbt(root, i, totalnodes)){
+           return true;
+       } 
+        else{
+            return false;
+        }
+    }
